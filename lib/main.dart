@@ -28,13 +28,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   Future example() async {
 
@@ -63,27 +56,27 @@ class _LoginPageState extends State<LoginPage> {
       var count = 0;
 
       var searchResult = await connection.search(base, filter, attrs);
-//      await for (var entry in searchResult.stream) {
-//        // Processing stream of SearchEntry
-//        count++;
-//        print("dn: ${entry.dn}");
-//
-//        // Getting all attributes returned
-//
-//        for (var attr in entry.attributes.values) {
-//          for (var value in attr.values) { // attr.values is a Set
-//            print("  ${attr.name}: $value");
-//          }
-//        }
-//
-//        // Getting a particular attribute
-//
-//        assert(entry.attributes["dc"].values.length == 1);
-//        var dc = entry.attributes["dc"].values.first;
-//        print("# dc=$dc");
-//      }
-//
-//      print("# Number of entries: ${count}");
+      await for (var entry in searchResult.stream) {
+        // Processing stream of SearchEntry
+        count++;
+        print("dn: ${entry.dn}");
+
+        // Getting all attributes returned
+
+        for (var attr in entry.attributes.values) {
+          for (var value in attr.values) { // attr.values is a Set
+            print("  ${attr.name}: $value");
+          }
+        }
+
+        // Getting a particular attribute
+
+        assert(entry.attributes["dc"].values.length == 1);
+        var dc = entry.attributes["dc"].values.first;
+        print("# dc=$dc");
+      }
+
+      print("# Number of entries: ${count}");
     } catch (e) {
       print("Exception: $e");
     } finally {
